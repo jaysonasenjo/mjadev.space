@@ -68,6 +68,7 @@
         --fs-700: clamp(1.94rem, calc(1.54rem + 2.03vw), 3.11rem);
         --fs-800: clamp(2.33rem, calc(1.7rem + 3.15vw), 4.14rem);
         --fs-900: clamp(2.8rem, calc(2.85rem + 4.74vw), 6.52rem);
+        --fs-title: clamp(3.3rem, calc(3.33rem + 5.31vw), 8.90rem);
 
         --clr-primary-300: hsl(219, 76%, 55%);
         --clr-primary-400: hsl(219, 76%, 40%);
@@ -109,20 +110,36 @@
         margin: 0;
       }
 
-      img {
+      img:not(.icon) {
         max-width: 100%;
         display: block;
       }
 
+      a {
+        text-decoration: none;
+      }
+
       .site-title {
-        font-size: var(--fs-900);
+        font-size: var(--fs-title);
         font-family: "Jersey 20";
         line-height: 1.05;
         text-transform: lowercase;
       }
 
+      h2 {
+        color: var(--clr-primary-300);
+      }
+
+      h3 {
+        color: var(--clr-primary-400);
+      }
+
       .highlight {
         color: var(--clr-primary-300);
+      }
+
+      .accent {
+        color: var(--clr-accent-300);
       }
 
       .section-title {
@@ -132,6 +149,10 @@
 
       .bg-primary {
         background: var(--clr-primary-400);
+      }
+
+      .bg-white {
+        background: white;
       }
 
       .visually-hidden {
@@ -148,6 +169,7 @@
         border-radius: .5rem;
         padding: 1rem;
         background: hsl(0 0% 100% / 0.15);
+        width: fit-content;
       }
 
       .wrapper {
@@ -175,10 +197,14 @@
         min-height: 90svh;
         place-content: center;
         
-        background-image: url('res/flow.png');
+        background-image: url('res/flow.svg');
         background-repeat: no-repeat;
-        background-size: cover 50%;
+        background-size: cover 80%;
         background-position: bottom right;
+      }
+
+      .overlay {
+        border-image: fill 1 linear-gradient(hsl(219 76% 28% / .6), hsl(219 76% 10% / .6));
       }
 
       .banner > :not(.site-title, .section-padding) {
@@ -206,7 +232,6 @@
 
       nav a {
         color: inherit;
-        text-decoration: none;
       }
 
       nav a:hover,
@@ -219,11 +244,77 @@
         display: flex;
         gap: 1rem;
       }
+
+      .icon {
+        max-height: 3rem;
+        margin: .5rem;
+        border-radius: .2rem;
+      }
+
+      .flex-layout {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: stretch;
+        justify-content: space-evenly;
+        gap: 1rem;
+      }
+      
+      .card {
+        max-width: 18rem;
+        border-radius: 1rem;
+        background-color: var(--clr-primary-500);
+        height: fit-content;
+      }
+
+      .card > p {
+        padding: 2rem;
+      }
+
+      .card img {
+        max-height: 5rem;
+      }
+
+      .bg-card-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 6rem;
+
+        border-radius: 1rem 1rem 0 0;
+        max-height: 7rem;
+        background-color: white;
+      }
+
+      ul {
+        list-style-type: none; /* Remove bullets */
+        padding: 0; /* Remove padding */
+        margin: 0; /* Remove margins */
+      }
+
+
+      footer {
+        font-size: var(--fs-300);
+        display: flex;
+        flex-flow: row wrap;
+        gap: 1rem;
+        justify-content: center;
+        padding-block: 3rem;
+      }
+
+      footer > .icon {
+        flex-grow: 1;
+      }
+      footer > p {
+        text-align: center;
+        flex-basis: 100%;
+      }
+
     </style>
   </head>
 
   <body class="content-grid">
-    <section class="banner full-width">
+    <section class="banner full-width overlay">
       <h1 class="site-title">m<span class="highlight">j</span>adev</h1>
 
       <section class="section-padding">
@@ -248,8 +339,32 @@
       </p>
     </section>
 
-    <section id="portfolio" class="section-padding">
-      <h2>What I Have Done So Far</h2>
+    <section id="services" class="section-padding flow">
+      <h2>What I Offer</h2>
+      <ul class="flex-layout">
+        <li class="card">
+          <div class="bg-card-icon">
+            <img src="res/java.svg" alt="Java programming language icon" />
+          </div>
+          <p>
+            <span class="accent">Custom Java Backend Development</span> Tailored solutions to meet your
+            business needs.
+          </p>
+        </li>
+      <li class="card">
+          <div class="bg-card-icon">
+            <img src="res/rest.png" alt="RESTful api icon" />
+          </div>
+          <p>
+            <span class="accent">Development & Integration</span> Enhancing your applications with
+            powerful Java APIs.
+          </p>
+        </li>
+      </ul>
+    </section>
+
+    <section id="portfolio" class="section-padding flow">
+      <h2>Where I worked So Far</h2>
       <div>
         <h3>Erste Bank u. Sparkassen Österreich</h3>
         <p>
@@ -269,21 +384,7 @@
       </div>
     </section>
 
-    <section id="services" class="section-padding">
-      <h2>What I Offer</h2>
-      <ul>
-        <li>
-          Custom Java Backend Development: Tailored solutions to meet your
-          business needs.
-        </li>
-        <li>
-          API Development & Integration: Enhancing your applications with
-          powerful Java APIs.
-        </li>
-      </ul>
-    </section>
-
-    <section id="contact" class="section-padding">
+    <section id="contact" class="section-padding flow">
       <h2>Let's Connect</h2>
       <p>
         Got a new burning idea? Drop me a message or send an email to
@@ -294,25 +395,12 @@
     </section>
 
     <footer>
-      <p>Follow me on LinkedIn and GitHub</p>
-      <ul>
-        <li>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://linkedin.com/in/mark-jayson-asenjo-124254197"
-            >LinkedIn</a
-          >
-        </li>
-        <li>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://github.com/jaysonasenjo"
-            >GitHub</a
-          >
-        </li>
-      </ul>
+      <a target="_blank" rel="noopener noreferrer" href="https://linkedin.com/in/mark-jayson-asenjo-124254197">
+        <img class="icon" src="res/linkedin.png" alt="LinkedIn profile" />
+      </a>
+      <a target="_blank" rel="noopener noreferrer" href="https://github.com/jaysonasenjo">
+        <img class="icon bg-white" src="res/github.png" alt="GitHub profile" />
+      </a>
       <p>© 2024 Mark-Jayson Asenjo. All Rights Reserved.</p>
     </footer>
   </body>
